@@ -50,29 +50,16 @@
   ],
   "provisioners": [
     {
-      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash -eux '{{.Path}}'",
-      "expect_disconnect": true,
-      "script": "{{template_dir}}/scripts/snapshot.sh",
-      "type": "shell"
-    },
-    {
-      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
-      "execute_command": "{{.Vars}} bash -eux '{{.Path}}'",
-      "expect_disconnect": true,
-      "script": "{{template_dir}}/scripts/init.sh",
-      "type": "shell"
-    },
-    {
       "environment_vars": [
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
         "no_proxy={{user `no_proxy`}}"
       ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash -eux '{{.Path}}'",
       "expect_disconnect": true,
       "scripts": [
+        "{{template_dir}}/scripts/snapshot.sh",
         "{{template_dir}}/scripts/update.sh",
         "{{template_dir}}/../_common/motd.sh",
         "{{template_dir}}/../_common/sshd.sh",
@@ -80,15 +67,11 @@
         "{{template_dir}}/scripts/sudoers.sh",
         "{{template_dir}}/../_common/vagrant.sh",
         "{{template_dir}}/scripts/systemd.sh",
-        "{{template_dir}}/../_common/virtualbox.sh"
+        "{{template_dir}}/../_common/virtualbox.sh",
+        "{{template_dir}}/scripts/cleanup.sh",
+        "{{template_dir}}/scripts/seL4.sh",
+        "{{template_dir}}/scripts/desktop.sh"
       ],
-      "type": "shell"
-    },
-    {
-      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash -eux '{{.Path}}'",
-      "expect_disconnect": true,
-      "script": "{{template_dir}}/scripts/seL4.sh",
       "type": "shell"
     },
     {
@@ -108,14 +91,14 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "expect_disconnect": true,
       "scripts": [
-        "{{template_dir}}/scripts/cleanup.sh",
+        "{{template_dir}}/scripts/cleanup2.sh",
         "{{template_dir}}/../_common/minimize.sh"
       ],
       "type": "shell"
     }
   ],
   "variables": {
-    "box_basename": "debian-11.1",
+    "box_basename": "debian-11.1-desktop-seL4",
     "build_directory": "../../builds",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "4",
