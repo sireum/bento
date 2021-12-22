@@ -21,7 +21,8 @@ echo "force-unsafe-io" | tee /etc/dpkg/dpkg.cfg.d/02apt-speedup > /dev/null
 echo "Acquire::http {No-Cache=True;};" | tee /etc/apt/apt.conf.d/no-cache > /dev/null
 
 apt-get update -q
-apt-get install repo ninja-build -y
+apt-get upgrade -y
+apt-get install repo ninja-build build-essential linux-headers-amd64 linux-image-amd64 python3-pip -y
 
 echo 'en_US.UTF-8 UTF-8' | tee /etc/locale.gen > /dev/null
 locale-gen
