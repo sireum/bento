@@ -145,7 +145,7 @@ def buildSireum(): Unit = {
     (buildsDir / nameSireum).removeAll()
     proc"packer build -only=virtualbox-ovf $nameSireum.json".at(templatesDir).echo.console.runCheck()
     temp.removeAll()
-    val ova = buildsDir / nameSeL4 / s"$nameSireum.ova"
+    val ova = buildsDir / nameSireum / s"$nameSireum.ova"
     ova.moveOverTo(buildsDir / ova.name)
     ova.up.removeAll()
   }
