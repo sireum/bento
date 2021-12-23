@@ -37,6 +37,13 @@
       "type": "shell"
     },
     {
+      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "inline": "hostname case-env",
+      "type": "shell"
+    },
+    {
       "environment_vars": [
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",
