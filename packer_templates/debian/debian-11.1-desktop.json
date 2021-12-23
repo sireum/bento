@@ -31,7 +31,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
       "memory": "{{ user `memory` }}",
-      "output_directory": "{{ user `build_directory` }}/packer-{{user `template`}}-virtualbox",
+      "output_directory": "{{ user `build_directory` }}/{{user `name`}}",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -hP now",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -44,7 +44,7 @@
   ],
   "post-processors": [
     {
-      "output": "{{ user `build_directory` }}/{{user `box_basename`}}.{{.Provider}}.box",
+      "output": "{{ user `build_directory` }}/{{user `name`}}.{{.Provider}}.box",
       "type": "vagrant"
     }
   ],
@@ -69,28 +69,7 @@
         "{{template_dir}}/scripts/systemd.sh",
         "{{template_dir}}/../_common/virtualbox.sh",
         "{{template_dir}}/scripts/cleanup.sh",
-        "{{template_dir}}/scripts/seL4.sh",
-        "{{template_dir}}/scripts/desktop.sh"
-      ],
-      "type": "shell"
-    },
-    {
-      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
-      "execute_command": "{{.Vars}} bash -eux '{{.Path}}'",
-      "expect_disconnect": true,
-      "script": "{{template_dir}}/scripts/test.sh",
-      "type": "shell"
-    },
-    {
-      "environment_vars": [
-        "HOME_DIR=/home/vagrant",
-        "http_proxy={{user `http_proxy`}}",
-        "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
-      ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
-      "expect_disconnect": true,
-      "scripts": [
+        "{{template_dir}}/scripts/desktop.sh",
         "{{template_dir}}/scripts/cleanup2.sh",
         "{{template_dir}}/../_common/minimize.sh"
       ],
@@ -98,9 +77,7 @@
     }
   ],
   "variables": {
-    "box_basename": "debian-11.1-desktop-seL4",
     "build_directory": "../../builds",
-    "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "4",
     "disk_size": "65536",
     "git_revision": "__unknown_git_revision__",
@@ -112,11 +89,11 @@
     "iso_checksum": "sha256:30f135e88d42cf0f4933fb3c02d293d27f23b13d2bda80d4b2bd2f69bd969d26",
     "iso_url": "http://files.sireum.org/debian/debian-11.1.0-amd64-DVD-1.iso",
     "memory": "8192",
-    "name": "debian-11.1-amd64-seL4",
+    "name": "debian-11.1-desktop",
     "no_proxy": "{{env `no_proxy`}}",
-    "preseed_path": "debian-9/preseed-seL4.cfg",
+    "preseed_path": "debian-9/preseed-sireum.cfg",
     "qemu_display": "none",
-    "template": "debian-11.1-amd64-seL4",
-    "version": "TIMESTAMP"
+    "version": "TIMESTAMP",
+    "vm_description": "Debian 11.1 desktop base"
   }
 }

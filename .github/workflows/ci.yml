@@ -16,7 +16,30 @@ jobs:
       run: |
         wget https://releases.hashicorp.com/packer/1.7.8/packer_1.7.8_darwin_amd64.zip
         unzip packer_1.7.8_darwin_amd64.zip
+        rm packer_1.7.8_darwin_amd64.zip
+        mv packer bin
+    - name: Cache Java
+      id: cache-java
+      uses: actions/cache@v2
+      with:
+        path: bin/linux/java
+        key: ${{ runner.os }}-${{ hashFiles('versions.properties') }}-java
+    - name: Cache Scala
+      id: cache-scala
+      uses: actions/cache@v2
+      with:
+        path: bin/scala
+        key: ${{ runner.os }}-${{ hashFiles('versions.properties') }}-scala
+    - name: Setup Sireum
+      run: |
+        curl -JLso versions.properties https://raw.githubusercontent.com/sireum/kekinian/master/versions.properties
+        curl -JLso bin/init.sh https://raw.githubusercontent.com/sireum/kekinian/master/bin/init.sh
+        curl -JLso bin/sireum https://raw.githubusercontent.com/sireum/kekinian/master/bin/sireum
+        chmod +x bin/init.sh bin/sireum
+        bin/init.sh
+        bin/sireum -v
     - name: Build
       run: |
-        export PATH=$PATH:`pwd`
-        build-seL4.sh
+        export SIREUM_HOME=`pwd`
+        export PATH=$PATH:`pwd`/bin
+        build.cmd sel4 clean

@@ -1,0 +1,43 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "{{ user `build_directory` }}/{{user `base`}}/box.ovf",
+      "output_directory": "{{ user `build_directory` }}/{{user `name`}}",
+      "vm_name": "{{user `name`}}",
+      "headless": "true",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -hP now",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_timeout": "10000s",
+      "ssh_username": "vagrant",
+      "guest_additions_mode": "disable"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "{{ user `build_directory` }}/{{user `name`}}.{{.Provider}}.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "scripts": [
+        "{{template_dir}}/scripts/seL4.sh",
+        "{{template_dir}}/scripts/cleanup2.sh",
+        "{{template_dir}}/../_common/minimize.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "base": "debian-11.1-desktop",
+    "build_directory": "../../builds",
+    "name": "debian-11.1-desktop-seL4-base",
+    "vm_version": "TIMESTAMP",
+    "vm_description": "seL4, CAmkES, and CakeML on Debian 11.1 desktop base"
+  }
+}

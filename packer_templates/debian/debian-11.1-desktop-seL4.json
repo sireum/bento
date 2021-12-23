@@ -1,0 +1,54 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "{{ user `build_directory` }}/{{user `base`}}/box.ovf",
+      "output_directory": "{{ user `build_directory` }}/{{user `name`}}",
+      "vm_name": "{{user `name`}}",
+      "headless": "true",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -hP now",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_timeout": "10000s",
+      "ssh_username": "vagrant",
+      "guest_additions_mode": "disable",
+      "export_opts": [
+        "--manifest",
+        "--vsys", "0",
+        "--description", "{{user `vm_description`}}",
+        "--version", "{{user `vm_version`}}"
+      ],
+      "format": "ova"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "{{ user `build_directory` }}/{{user `name`}}.{{.Provider}}.box",
+      "type": "vagrant",
+      "keep_input_artifact": true
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
+      "execute_command": "{{.Vars}} bash -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "script": "{{template_dir}}/scripts/test.sh",
+      "type": "shell"
+    },
+    {
+      "environment_vars": [ "HOME_DIR=/home/vagrant" ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "script": "{{template_dir}}/../_common/minimize.sh",
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "base": "debian-11.1-desktop-seL4-base",
+    "build_directory": "../../builds",
+    "name": "debian-11.1-desktop-seL4",
+    "vm_version": "TIMESTAMP",
+    "vm_description": "seL4, CAmkES, and CakeML on Debian 11.1 desktop"
+  }
+}

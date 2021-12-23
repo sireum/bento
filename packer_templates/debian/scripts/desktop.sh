@@ -4,7 +4,7 @@ set -exuo pipefail
 
 apt-get update -q
 apt-get upgrade -y
-apt-get install build-essential linux-headers-amd64 linux-image-amd64 python3-pip -y
+apt-get install build-essential linux-headers-amd64 linux-image-amd64 python3-pip open-vm-tools -y
 
 adduser vagrant vboxsf
 apt-get install task-xfce-desktop materia-gtk-theme papirus-icon-theme -y

@@ -7,6 +7,7 @@ set -exuo pipefail
 : "${GIT_EMAIL:=<>}"
 : "${SEL4_V:=e4bbc0fd0c5daf7f1529aaed5f0b07fc7a6d3fed}"
 : "${CAMKES_V:=ae9f261fa3853e2243934209b8bf9bdf815cfa5d}"
+: "${CAMKES_VM_V:=18ca4b78e355501876c18b05f693e86935dd4a45}"
 
 git config --global user.name $GIT_USER
 git config --global user.email $GIT_EMAIL
@@ -23,9 +24,8 @@ mkdir -p "$BASE_DIR/sel4test"
 cd "$BASE_DIR/sel4test"
 repo init -u "https://github.com/seL4/sel4test-manifest.git" --depth=1 -b $SEL4_V
 repo sync -j 4
-mkdir build-x86_64
-mkdir build-odroidxu4
-cd build-x86_64
+mkdir build
+cd build
 ../init-build.sh -DPLATFORM=x86_64
 ninja
 
@@ -39,6 +39,16 @@ mkdir build
 cd build
 ../init-build.sh
 ninja
+
+
+rm -fR "$BASE_DIR/camkes-vm-examples"
+mkdir -p "$BASE_DIR/camkes-vm-examples"
+cd "$BASE_DIR/camkes-vm-examples"
+repo init -u https://github.com/seL4/camkes-vm-examples-manifest.git --depth=1 -b $CAMKES_VM_V
+repo sync
+mkdir build
+cd build
+../init-build.sh -DCAMKES_VM_APP=vm_multi -DPLATFORM=qemu-arm-virt
 
 
 git config --global --unset user.name $GIT_USER

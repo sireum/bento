@@ -1,3 +1,14 @@
+/.idea
+/bin/init.sh
+/bin/sireum
+/bin/sireum.jar
+/bin/mac
+/bin/linux
+/bin/win
+/bin/scala
+/lib/scalac-plugin-*.jar
+/bin/packer
+/versions.properties
 .bundle/
 *.iso
 *.box
