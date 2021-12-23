@@ -32,7 +32,7 @@ val templatesDir = homeDir / "packer_templates" / "debian"
 val nameDesktop = s"debian-$debianVer-desktop"
 val nameBase = s"debian-$debianVer-desktop-seL4-base"
 val nameSeL4 = s"debian-$debianVer-desktop-seL4"
-val nameSireum = s"debian-$debianVer-desktop-sireum"
+val nameSireum = s"debian-$debianVer-desktop-seL4-sireum"
 
 val boxDesktop = buildsDir / s"$nameDesktop.virtualbox.box"
 val boxBase = buildsDir / s"$nameBase.virtualbox.box"
