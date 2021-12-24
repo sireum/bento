@@ -38,9 +38,9 @@
     },
     {
       "environment_vars": [ "HOME_DIR=/home/vagrant" ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E /home/vagrant/CASE/Sireum/bin/slang-run.sh '{{.Path}}'",
       "expect_disconnect": true,
-      "inline": "hostname case-env",
+      "script": "{{template_dir}}/scripts/hosts.sc",
       "type": "shell"
     },
     {
