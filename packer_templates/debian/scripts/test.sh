@@ -15,7 +15,7 @@ git config --global color.ui true
 
 export LANG=en_US.UTF-8
 export PATH=$PATH:$BASE_DIR/camkes/build/capDL-tool
-echo "export LANG=en_US.UTF-8" >> "$HOME/.bashrc"
+sed -i 's/en_AU/en_US/g' "$HOME/.bashrc"
 echo "export PATH=\$PATH:$BASE_DIR/camkes/build/capDL-tool" >> "$HOME/.bashrc"
 
 rm -fR ~/.sel4_cache "$BASE_DIR/sel4test"
