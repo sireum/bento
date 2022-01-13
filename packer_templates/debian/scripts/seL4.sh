@@ -48,6 +48,7 @@ dpkg-reconfigure --frontend=noninteractive locales
 echo "LANG=en_US.UTF-8" | tee -a /etc/default/locale > /dev/null
 
 chown -fR vagrant "$BASE_DIR"
+chgrp -fR vagrant "$BASE_DIR"
 
 git config --global --unset user.name $GIT_USER
 git config --global --unset user.email $GIT_EMAIL

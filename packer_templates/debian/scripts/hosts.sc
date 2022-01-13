@@ -22,3 +22,4 @@ println(hostname.read)
 proc"hostname case-env".console.runCheck()
 
 proc"chown -fR vagrant /home/vagrant".console.runCheck()
+proc"chgrp -fR vagrant /home/vagrant".console.runCheck()

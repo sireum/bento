@@ -12,6 +12,13 @@
       "ssh_timeout": "10000s",
       "ssh_username": "vagrant",
       "guest_additions_mode": "disable",
+      "vboxmanage": [
+        ["modifyvm", "{{user `name`}}", "--memory", "8192"],
+        ["modifyvm", "{{user `name`}}", "--cpus", "4"],
+        ["modifyvm", "{{user `name`}}", "--vram", "128"],
+        ["modifyvm", "{{user `name`}}", "--clipboard-mode", "bidirectional"],
+        ["modifyvm", "{{user `name`}}", "--draganddrop", "hosttoguest"]
+      ],
       "export_opts": [
         "--manifest",
         "--vsys", "0",
