@@ -19,4 +19,6 @@ hostname.writeOver("case-env")
 println(hosts.read)
 println(hostname.read)
 
-proc"hostname case-env".runCheck()
+proc"hostname case-env".console.runCheck()
+
+proc"chown -fR vagrant /home/vagrant".console.runCheck()
