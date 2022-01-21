@@ -153,12 +153,39 @@ def buildSireum(): Unit = {
   sireumBuilt = T
 }
 
+var tccoe22Built: B = F
+def buildTccoe22(): Unit = {
+  if (tccoe22Built) {
+    return
+  }
+  val nameTccoe22 = s"debian-$debianVer-desktop-seL4-sireum-tccoe22"
+  val boxTccoe22 = buildsDir / s"$nameTccoe22.virtualbox.box"
+  val sourcesTccoe22 = ISZ(templatesDir / s"$nameTccoe22.json")
+
+  def f(): Unit = {
+    buildSireum()
+    val temp = buildsDir / nameTccoe22
+    temp.removeAll()
+    temp.mkdirAll()
+    proc"tar xf $boxSireum".at(temp).echo.console.runCheck()
+    (buildsDir / nameTccoe22).removeAll()
+    proc"packer build -only=virtualbox-ovf $nameTccoe22.json".at(templatesDir).echo.console.runCheck()
+    temp.removeAll()
+    val ova = buildsDir / nameTccoe22 / s"$nameTccoe22.ova"
+    ova.moveOverTo(buildsDir / ova.name)
+    ova.up.removeAll()
+  }
+  work(boxTccoe22, sha3src(sourcesTccoe22), f _)
+  tccoe22Built = T
+}
+
 for (arg <- Os.cliArgs) {
   arg match {
     case string"desktop" => buildDesktop()
     case string"base" => buildBase()
     case string"sel4" => buildSeL4()
     case string"sireum" => buildSireum()
+    case string"tccoe22" => buildTccoe22()
     case string"clean" =>
       for (p <- buildsDir.list if p.name != ".gitkeep") {
         p.removeAll()
