@@ -164,7 +164,7 @@ def buildTccoe22(): Unit = {
 
   def f(): Unit = {
     buildSireum()
-    val temp = buildsDir / nameTccoe22
+    val temp = buildsDir / nameSireum
     temp.removeAll()
     temp.mkdirAll()
     proc"tar xf $boxSireum".at(temp).echo.console.runCheck()
