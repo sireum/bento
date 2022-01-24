@@ -55,7 +55,8 @@ addDesktopEntry("IVE", st"""bash -ic "${ive.value}"""".render, (ive.up / "idea.p
  ******************************************************************************/
 
 val tccoe22Dir = home / "tccoe22"
-tccoe22Dir.mkdir
+tccoe22Dir.removeAll()
+tccoe22Dir.mkdir()
 
 val tempControlRepo = "https://github.com/jasonbelt/test" // TODO: change to final repo location
 
