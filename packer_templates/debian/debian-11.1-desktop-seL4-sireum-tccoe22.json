@@ -61,6 +61,6 @@
     "build_directory": "../../builds",
     "name": "debian-11.1-desktop-seL4-sireum-tccoe22",
     "vm_version": "TIMESTAMP",
-    "vm_description": "Sireum, seL4, CAmkES, and CakeML on Debian 11.1 desktop for TCCOE22"
+    "vm_description": "Debian 11.1 Desktop for TCCOE22 with Sireum, seL4, CAmkES, and CakeML pre-installed"
  }
 }
