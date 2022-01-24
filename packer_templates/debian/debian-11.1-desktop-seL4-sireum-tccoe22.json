@@ -19,7 +19,6 @@
         ["modifyvm", "{{user `name`}}", "--clipboard-mode", "bidirectional"],
         ["modifyvm", "{{user `name`}}", "--draganddrop", "hosttoguest"]
       ],
-      "skip_export": "true",
       "export_opts": [
         "--manifest",
         "--vsys", "0",
