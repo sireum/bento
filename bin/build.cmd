@@ -158,7 +158,7 @@ def buildTccoe22(): Unit = {
   if (tccoe22Built) {
     return
   }
-  val nameTccoe22 = s"debian-$debianVer-desktop-seL4-sireum-tccoe22"
+  val nameTccoe22 = s"debian-$debianVer-desktop-tccoe22"
   val boxTccoe22 = buildsDir / s"$nameTccoe22.virtualbox.box"
   val sourcesTccoe22 = ISZ(templatesDir / s"$nameTccoe22.json")
 
