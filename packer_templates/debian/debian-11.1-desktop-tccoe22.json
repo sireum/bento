@@ -60,7 +60,7 @@
     "base": "debian-11.1-desktop-seL4-sireum",
     "build_directory": "../../builds",
     "name": "debian-11.1-desktop-tccoe22",
-    "vm_version": "20220125.1336",
+    "vm_version": "TIMESTAMP",
     "vm_description": "Debian 11.1 Desktop for TCCOE22 HAMR Tutorial with Sireum, seL4, CAmkES, and CakeML pre-installed"
  }
 }

@@ -75,9 +75,9 @@ println(s"Modified ${bashrc}")
 val tccoe22Dir = home / "tccoe22"
 tccoe22Dir.removeAll()
 
-val tempControlRepo = "https://github.com/jasonbelt/tccoe22.git" // TODO: change to final repo location
+val tempControlRepo = "https://github.com/santoslab/tccoe22-hamr.git"
 
-proc"git clone ${tempControlRepo}".at(home).console.runCheck()
+proc"git clone ${tempControlRepo} tccoe22".at(home).console.runCheck()
 
 (tccoe22Dir / ".git").removeAll()
 (tccoe22Dir / ".gitignore").removeAll()
