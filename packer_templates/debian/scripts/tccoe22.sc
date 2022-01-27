@@ -42,7 +42,25 @@ addDesktopEntry("CLion", st"""bash -ic "${clion.value}"""".render, "clion")
 addDesktopEntry("FMIDE", st"""bash -ic "GTK_THEME=Adwaita ${fmide.value}"""".render, "eclipse") // TODO: find an osate icon
 addDesktopEntry("IVE", st"""bash -ic "${ive.value}"""".render, (ive.up / "idea.png").value)
 
+/*******************************************************************************
+ * Modify .bashrc
+ ******************************************************************************/
+val bashrc = home / ".bashrc"
 
+val content = st"""
+|
+|# TCCOE22 Customizations
+|alias ..='cd ..'
+|alias ...='cd ../..'
+|alias dir='ls -lFG --time-style=+""'
+|alias ddir='ls -lFGa --time-style=+""'
+|
+|export SIREUM_HOME=~/CASE/Sireum
+|export PATH=$$SIREUM_HOME/bin:$$PATH:.
+|""".render
+
+bashrc.writeAppend(content)
+println(s"Modified ${bashrc}")
 
 /*******************************************************************************
  * Setup the tccoe22 subdirectory which includes:
@@ -56,8 +74,13 @@ addDesktopEntry("IVE", st"""bash -ic "${ive.value}"""".render, (ive.up / "idea.p
 
 val tccoe22Dir = home / "tccoe22"
 tccoe22Dir.removeAll()
-tccoe22Dir.mkdir()
 
-val tempControlRepo = "https://github.com/jasonbelt/test" // TODO: change to final repo location
+val tempControlRepo = "https://github.com/jasonbelt/tccoe22.git" // TODO: change to final repo location
 
-proc"git clone ${tempControlRepo} temperature_control".at(tccoe22Dir).console.runCheck()
+proc"git clone ${tempControlRepo}".at(home).console.runCheck()
+
+(tccoe22Dir / ".git").removeAll()
+(tccoe22Dir / ".gitignore").removeAll()
+
+
+
