@@ -54,9 +54,7 @@ val content = st"""
 |alias ...='cd ../..'
 |alias dir='ls -lFG --time-style=+""'
 |alias ddir='ls -lFGa --time-style=+""'
-|
-|export SIREUM_HOME=~/CASE/Sireum
-|export PATH=$$SIREUM_HOME/bin:$$PATH:.
+|alias emacs='emacs -nw'
 |""".render
 
 bashrc.writeAppend(content)

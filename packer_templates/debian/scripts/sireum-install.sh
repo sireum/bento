@@ -15,5 +15,11 @@ bin/install/ffmpeg-libs.cmd
 bin/install/projector-server.cmd
 bin/install/fmide.cmd
 bin/install/clion.cmd
-#bin/install/compcert.cmd
+bin/install/compcert.cmd
 rm -fR ~/Downloads/sireum
+
+cat <<EOT >> $HOME/.bashrc
+
+export SIREUM_HOME=${BASE_DIR}/Sireum
+export PATH=\$SIREUM_HOME/bin:\$PATH
+EOT
