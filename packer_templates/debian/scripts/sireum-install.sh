@@ -13,7 +13,8 @@ git submodule update --init --recursive
 bin/build.cmd setup
 bin/install/ffmpeg-libs.cmd
 bin/install/projector-server.cmd
-bin/install/fmide.cmd
+# use agree 2.7.0 as 2.8.0 requires osate 2.10.x.  Fix others to their current 2022.03.02 versions
+bin/install/fmide.cmd --agree agree_2.7.0 --briefcase briefcase_0.6.0 --hamr 1.2022.01051723.29d9922 --resolute resolute_2.7.2 fixed
 bin/install/clion.cmd
 #bin/install/compcert.cmd
 rm -fR ~/Downloads/sireum
