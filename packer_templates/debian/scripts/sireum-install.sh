@@ -15,6 +15,7 @@ bin/install/ffmpeg-libs.cmd
 bin/install/projector-server.cmd
 bin/install/fmide.cmd
 bin/install/clion.cmd
+#bin/install/alt-ergo.cmd
 #bin/install/compcert.cmd
 rm -fR ~/Downloads/sireum
 
